@@ -7,9 +7,11 @@ class Database {
     private $password = "1234";
     private $dbname = "inloggning";
 
-    private $pdo; 
+    public $pdo;
+
+    /*private $pdo; 
     private $error; 
-    private $stmt; 
+    private $stmt; */
 
     public function __construct(){
         //Set DSN 
@@ -19,6 +21,7 @@ class Database {
             PDO::ATTR_PERSISTENT => true, 
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         );
+
         // new PDO instance 
         try{
             $this->pdo = new PDO($dsn, $this->user, $this->password, $options);
@@ -27,7 +30,7 @@ class Database {
         }
     }
 
-    public function query($sql){
+    /*public function query($sql){
         $this->stmt = $this->pdo->prepare($sql);
     }
 
@@ -60,7 +63,7 @@ class Database {
     public function resultset(){
         $this->execute();
         return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+    }*/
 }
 
 ?>
