@@ -2,6 +2,11 @@
 
 require "../classes/User.php";
 
+if(isset($_POST["login"]))
+{
+  echo "clicked login";
+}
+
 require("includes/head.php");
 require("includes/nav.php");
 ?> 
@@ -33,7 +38,7 @@ require("includes/nav.php");
                 placeholder="Enter Password"
               />
             </div>
-            <button class="btn btn-block btn-success" type="submit" name="submit">
+            <button class="btn btn-block btn-success" type="submit" name="login">
               Login
             </button>
           </form>

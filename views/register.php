@@ -1,13 +1,24 @@
 <?php 
 
 require "../classes/User.php";
+session_start();
 
-// $db = new Database();
+$name = $email = $password = $confirm = "";
 
-// $db->query("SELECT * FROM users WHERE id = :id");
-// $db->bind(":id", 1);
-// $rows = $db->resultset();
-// print_r($rows);
+if(isset($_POST["register"]))
+{
+  //get vars
+  $name = $_POST["name"];
+  $email = $_POST["email"];
+  $password = $_POST["password"];
+  $confirm = $_POST["confirm"];
+
+  $data = ["name" => $name, "email" => $email, "password" => $password, "confirm" => $confirm];
+
+  $user = new User();
+  $user->createUser($data);
+
+}
 
 require("includes/head.php");
 require("includes/nav.php");
@@ -28,6 +39,8 @@ require("includes/nav.php");
                 name="name"
                 class="form-control"
                 placeholder="Enter Username"
+                value="<?php echo htmlspecialchars($name)?>"
+                required
               />
             </div>
             <div class="form-group">
@@ -38,6 +51,8 @@ require("includes/nav.php");
                 name="email"
                 class="form-control"
                 placeholder="Enter email"
+                value="<?php echo htmlspecialchars($email)?>"
+                required
               />
             </div>
             <div class="form-group">
@@ -48,9 +63,33 @@ require("includes/nav.php");
                 name="password"
                 class="form-control"
                 placeholder="Enter Password"
+                value="<?php echo htmlspecialchars($password)?>"
+                required
               />
+              <?php if(isset($_SESSION["Error"]))
+              { ?>
+              <p class="text-danger"><?php echo $_SESSION["Error"] ?></p>
+              <?php } ?> 
+              
             </div>
-            <button class="btn btn-block btn-success" type="submit" name="submit">
+            <div class="form-group">
+              <label for="confirm">Confirm Password</label>
+              <input
+                type="password"
+                id="confirm"
+                name="confirm"
+                class="form-control"
+                placeholder="Confirm Password"
+                value="<?php echo htmlspecialchars($confirm)?>"
+                required
+              />
+              <?php if(isset($_SESSION["Error"]))
+              { ?>
+              <p class="text-danger"><?php echo $_SESSION["Error"] ?></p>
+              <?php }
+              unset($_SESSION["Error"]);?> 
+            </div>
+            <button class="btn btn-block btn-success" type="submit" name="register">
               Register
             </button>
           </form>
