@@ -1,24 +1,5 @@
 <?php 
-
-require "../classes/User.php";
-session_start();
-
-$name = $email = $password = $confirm = "";
-
-if(isset($_POST["register"]))
-{
-  //get vars
-  $name = $_POST["name"];
-  $email = $_POST["email"];
-  $password = $_POST["password"];
-  $confirm = $_POST["confirm"];
-
-  $data = ["name" => $name, "email" => $email, "password" => $password, "confirm" => $confirm];
-
-  $user = new User();
-  $user->createUser($data);
-
-}
+include_once("../controllers/register.php");
 
 require("includes/head.php");
 require("includes/nav.php");
@@ -54,6 +35,10 @@ require("includes/nav.php");
                 value="<?php echo htmlspecialchars($email)?>"
                 required
               />
+              <?php if(isset($_SESSION["Exists"]))
+              { ?>
+              <p class="text-danger"><?php echo $_SESSION["Exists"] ?></p>
+              <?php unset($_SESSION["Exists"]);  } ?> 
             </div>
             <div class="form-group">
               <label for="password">Password</label>
@@ -86,8 +71,8 @@ require("includes/nav.php");
               <?php if(isset($_SESSION["Error"]))
               { ?>
               <p class="text-danger"><?php echo $_SESSION["Error"] ?></p>
-              <?php }
-              unset($_SESSION["Error"]);?> 
+              <?php unset($_SESSION["Error"]); }
+              ?> 
             </div>
             <button class="btn btn-block btn-success" type="submit" name="register">
               Register

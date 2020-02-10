@@ -1,11 +1,5 @@
 <?php 
-
-require "../classes/User.php";
-
-if(isset($_POST["login"]))
-{
-  echo "clicked login";
-}
+include_once("../controllers/login.php");
 
 require("includes/head.php");
 require("includes/nav.php");
@@ -17,6 +11,11 @@ require("includes/nav.php");
           <h1 class="text-center mb-3">
             Login
           </h1>
+          <?php if(isset($_SESSION["Exists"]))
+              { ?>
+              <p class="text-danger"><?php echo $_SESSION["Exists"] ?></p>
+              <?php  unset($_SESSION["Exists"]);}
+             ?>
           <form action="<?php $_SERVER['PHP_SELF']?>" method="POST">
             <div class="form-group">
               <label for="email">Email</label>
@@ -26,6 +25,7 @@ require("includes/nav.php");
                 name="email"
                 class="form-control"
                 placeholder="Enter email"
+                value="<?php echo htmlspecialchars($email)?>"
               />
             </div>
             <div class="form-group">
@@ -36,8 +36,14 @@ require("includes/nav.php");
                 name="password"
                 class="form-control"
                 placeholder="Enter Password"
+                value="<?php echo htmlspecialchars($password)?>"
               />
             </div>
+            <?php if(isset($_SESSION["pwd"]))
+              { ?>
+              <p class="text-danger"><?php echo $_SESSION["pwd"] ?></p>
+              <?php unset($_SESSION["pwd"]);}
+              ?>
             <button class="btn btn-block btn-success" type="submit" name="login">
               Login
             </button>
