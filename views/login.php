@@ -1,5 +1,5 @@
 <?php 
-include_once("../controllers/login.php");
+include_once("../Controllers/login.php");
 
 require("includes/head.php");
 require("includes/nav.php");

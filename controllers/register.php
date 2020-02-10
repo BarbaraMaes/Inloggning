@@ -1,11 +1,10 @@
 <?php
 
-require "../classes/User.php";
+require "../Models/User.php";
 
 $name = $email = $password = $confirm = "";
 
-if(isset($_POST["register"]))
-{
+if (isset($_POST["register"])) {
   //get vars
   $name = $_POST["name"];
   $email = $_POST["email"];
@@ -16,7 +15,6 @@ if(isset($_POST["register"]))
 
   $user = new User();
   $user->createUser($data);
-
 }
 
 ?>

@@ -1,11 +1,10 @@
 <?php
 
-require "../classes/User.php";
+require "../Models/User.php";
 
 $email = $password = "";
 
-if(isset($_POST["login"]))
-{
+if (isset($_POST["login"])) {
     //get vars
     $email = $_POST["email"];
     $password = $_POST["password"];

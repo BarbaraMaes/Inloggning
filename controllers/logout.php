@@ -1,15 +1,10 @@
 <?php
 
-require "../classes/User.php";
+require "../Models/User.php";
 
 
-if(isset($_POST["logout"]))
-{
-
-    /*$user = new User();
-    $user->login($email,$password);*/
-
-    User::logout();
+if (isset($_POST["logout"])) {
+    User::Logout();
 }
 
 ?>

@@ -1,6 +1,8 @@
 <?php
-    include_once "Database.php";
 
+namespace inloggning;
+
+include_once "Database.php";
 
     class User 
     {
@@ -15,13 +17,11 @@
         public function createUser($data)
         {
             //passwords match
-            if($data["password"] != $data["confirm"])
-            {
+            if ($data["password"] != $data["confirm"]) {
                 $_SESSION["Error"] = "Passwords don't match"; 
                 return;
             }
-            else 
-            {
+            else {
                 //check if user exits 
                 $sql = "SELECT * FROM users WHERE email = :email";
                 $stmt = $this->db->prepare($sql);
@@ -29,8 +29,7 @@
                 $stmt->execute();
                 $user = $stmt->fetch();
                 
-                if($user)
-                {
+                if ($user) {
                     $_SESSION["Exists"] = "User already exists"; 
                     return;
                 }
@@ -53,35 +52,32 @@
         {
             //find the user 
             $sql = "SELECT * FROM users WHERE email = :email";
-            $stmt = $this->db->prepare($sql);
+            $stmt = $this->DB->prepare($sql);
             $stmt->bindValue("email", htmlspecialchars($email), FILTER_SANITIZE_STRING);
             $stmt->execute();
             $user = $stmt->fetch();
 
             //if user doesn't exist -> redirect to register
-            if(!$user)
-            {
+            if (!$user) {
                 $_SESSION["Exists"] = "User doesn't exist. Please register first";
                 //echo "user doesn't exist Please register first";
                 return;
             }
 
             //check password
-            if(password_verify($password, $user["password"]))
-            {
+            if (password_verify($password, $user["password"])) {
                 session_start();
                 $_SESSION["auth"] = $user;
                 header("Location: ../views/home.php");
                 
-            }else 
-            {
+            } else {
                 $_SESSION["pwd"] = "Password Incorrect";
             }
         }
 
-        public static function logout()
+        public static function Logout()
         {
-            //destroy session 
+            //unset session 
             session_unset();
 
             //redirect to login

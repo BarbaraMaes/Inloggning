@@ -1,5 +1,5 @@
 <?php 
-include_once("../controllers/register.php");
+include_once("../Controllers/register.php");
 
 require("includes/head.php");
 require("includes/nav.php");
