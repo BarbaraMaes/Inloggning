@@ -1,7 +1,5 @@
 <?php
 
-namespace inloggning;
-
 include_once "Database.php";
 
     class User 
@@ -52,7 +50,7 @@ include_once "Database.php";
         {
             //find the user 
             $sql = "SELECT * FROM users WHERE email = :email";
-            $stmt = $this->DB->prepare($sql);
+            $stmt = $this->db->prepare($sql);
             $stmt->bindValue("email", htmlspecialchars($email), FILTER_SANITIZE_STRING);
             $stmt->execute();
             $user = $stmt->fetch();

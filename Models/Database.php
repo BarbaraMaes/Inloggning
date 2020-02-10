@@ -1,7 +1,5 @@
 <?php
 
-namespace inloggning;
-
 require_once '../vendor/autoload.php';
 
 class Database 
