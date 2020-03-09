@@ -1,10 +1,15 @@
 <?php
 
+namespace App\Models;
+use App\Models\Database as Database;
+
 include_once "Database.php";
 
     class User 
     {
         private $db; 
+        protected $username;
+        protected $email;
 
         public function __construct()
         {
@@ -35,10 +40,12 @@ include_once "Database.php";
                 $hash = password_hash($data["password"], PASSWORD_DEFAULT);
 
                 //passwords match -> create user
+                $this->username = htmlspecialchars($data["name"]);
+                $this->email = htmlspecialchars($data["email"]);
                 $sql = "INSERT INTO users(username, email, password) VALUES (:username, :email, :password)";
                 $stmt = $this->db->prepare($sql);
-                $stmt->bindValue("username", htmlspecialchars($data["name"], FILTER_SANITIZE_STRING));
-                $stmt->bindValue("email", htmlspecialchars($data["email"], FILTER_SANITIZE_STRING));
+                $stmt->bindValue("username", $this->username, FILTER_SANITIZE_STRING);
+                $stmt->bindValue("email", $this->email, FILTER_SANITIZE_STRING);
                 $stmt->bindValue("password", $hash, FILTER_SANITIZE_STRING);
                 $stmt->execute();
 
@@ -80,6 +87,31 @@ include_once "Database.php";
 
             //redirect to login
             header("Location: ../views/login.php");
+        }
+
+        public function setUserName($user_name) {
+
+            $this->username = trim($user_name);
+        }
+
+        public function getUserName() {
+            
+            return $this->username;
+        }
+
+        public function setEmail($email) {
+            $this->email = trim($email);
+        }
+
+        public function getEmail() {
+            return $this->email;
+        }
+
+        public function getEmailVariables() {
+            return [
+                'user_name' => $this->getUserName(),
+                'email' => $this->getEmail()
+            ];
         }
     }
 ?>

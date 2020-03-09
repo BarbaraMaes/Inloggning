@@ -1,6 +1,11 @@
 <?php
 
-require_once '../vendor/autoload.php';
+namespace App\Models;
+
+require_once __DIR__ .'\..\..\vendor\autoload.php';
+
+use \Dotenv;
+use \PDO;
 
 class Database 
 {

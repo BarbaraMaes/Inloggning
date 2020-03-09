@@ -1,6 +1,7 @@
 <?php
 
 require "../Models/User.php";
+use App\Models\User as User;
 
 $email = $password = "";
 
